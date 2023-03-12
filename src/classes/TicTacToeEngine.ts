@@ -25,9 +25,18 @@ class TicTacToeEngine {
     return this._player;
   }
 
+  get winner(): Player | null {
+    return this.checkWinner();
+  }
+
   turn(x: number, y: number): boolean {
     if (this.field[x][y] !== Cell.Empty) {
       console.log('Already placed in this cell');
+      return false;
+    }
+
+    if (this.winner !== null) {
+      console.log('Game is over');
       return false;
     }
 
@@ -58,13 +67,17 @@ class TicTacToeEngine {
         this.field[i][0] === this.field[i][1] &&
         this.field[i][1] === this.field[i][2] &&
         this.field[i][0] !== Cell.Empty
-        ||
+      ) {
+        return this.field[i][0] === Cell.X ? Player.X : Player.O;
+      }
+
+      if (
         // horizontal
         this.field[0][i] === this.field[1][i] &&
         this.field[1][i] === this.field[2][i] &&
         this.field[0][i] !== Cell.Empty
       ) {
-        return this.field[i][0] === Cell.X ? Player.X : Player.O;
+        return this.field[0][i] === Cell.X ? Player.X : Player.O;
       }
     }
 

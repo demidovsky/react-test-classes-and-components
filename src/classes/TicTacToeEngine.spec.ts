@@ -38,7 +38,6 @@ test('checks winner diagonal', () => {
 
 test('checks winner horizontal', () => {
     const engine = new TicTacToeEngine();
-
     engine.turn(0, 0);
     engine.turn(1, 0);
     engine.turn(0, 1);
@@ -46,6 +45,19 @@ test('checks winner horizontal', () => {
     engine.turn(2, 2);
     engine.turn(1, 2);
     expect(engine.checkWinner()).toBe(Player.O);
+});
+
+
+test('checks winner vertical', () => {
+    const engine = new TicTacToeEngine();
+    engine.turn(0, 0);
+    engine.turn(0, 1);
+    engine.turn(0, 2);
+    engine.turn(1, 1);
+    engine.turn(2, 2);
+    engine.turn(1, 0);
+    engine.turn(1, 2);
+    expect(engine.checkWinner()).toBe(Player.X);
 });
 
 
