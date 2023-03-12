@@ -10,18 +10,22 @@ enum Cell {
 }
 
 class TicTacToeEngine {
-  private field: Cell[][] = [];
-  private player: Player = Player.X;
+  private _field: Cell[][] = [];
+  private _player: Player = Player.X;
 
   constructor() {
     this.restart();
   }
 
-  getField() {
-    return this.field;
+  get field(): Cell[][] {
+    return this._field;
   }
 
-  turn(x: number, y: number) {
+  get player(): Player {
+    return this._player;
+  }
+
+  turn(x: number, y: number): boolean {
     if (this.field[x][y] !== Cell.Empty) {
       console.log('Already placed in this cell');
       return false;
@@ -30,22 +34,24 @@ class TicTacToeEngine {
     this.field[x][y] = this.player === Player.X ? Cell.X : Cell.O;
 
     if (this.player === Player.X) {
-      this.player = Player.O;
+      this._player = Player.O;
     } else {
-      this.player = Player.X;
+      this._player = Player.X;
     }
+
+    return true;
   }
 
-  restart() {
-    this.field = [
+  restart(): void {
+    this._field = [
       (new Array(3)).fill(Cell.Empty),
       (new Array(3)).fill(Cell.Empty),
       (new Array(3)).fill(Cell.Empty),
     ];
-    this.player = Player.X;
+    this._player = Player.X;
   }
 
-  checkWinner() {
+  checkWinner(): Player | null {
     for (let i=0; i<3; i++) {
       if (
         // vertical
@@ -58,7 +64,7 @@ class TicTacToeEngine {
         this.field[1][i] === this.field[2][i] &&
         this.field[0][i] !== Cell.Empty
       ) {
-        return this.field[i][0];
+        return this.field[i][0] === Cell.X ? Player.X : Player.O;
       }
     }
 
@@ -72,7 +78,7 @@ class TicTacToeEngine {
         this.field[1][1] === this.field[0][2] &&
         this.field[1][1] !== Cell.Empty
     ) {
-      return this.field[1][1];
+      return this.field[1][1] === Cell.X ? Player.X : Player.O;
     }
 
     return null;
@@ -80,4 +86,4 @@ class TicTacToeEngine {
 
 }
 
-export { TicTacToeEngine };
+export { TicTacToeEngine, Cell, Player };
