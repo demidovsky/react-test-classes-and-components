@@ -45,11 +45,18 @@ interface BoardProps {
 }
 
 function Board(props: BoardProps) {
-  const [player, setPlayer] = useState(props.engine.player)
+  const [player, setPlayer] = useState(props.engine.player);
+  const [gameRestart, setGameRestart] = useState(true);
 
   function turn(x: number, y: number) {
     props.engine.turn(x, y);
     setPlayer(props.engine.player);
+  }
+
+  function restart() {
+    props.engine.restart();
+    setPlayer(props.engine.player);
+    setGameRestart(!gameRestart);
   }
 
   const field = props.engine.field;
@@ -59,7 +66,7 @@ function Board(props: BoardProps) {
     <ContainerStyled>
       <InstructionsStyled id="statusArea">Next player: <span>{player}</span></InstructionsStyled>
       <InstructionsStyled id="winnerArea">Winner: <span>{winner === null ? 'None' : winner}</span></InstructionsStyled>
-      {/* <ButtonStyled onClick={() => restart()}>Reset</ButtonStyled> */}
+      <ButtonStyled onClick={() => restart()}>Reset</ButtonStyled>
       <BoardStyled>
         <RowStyled>
           <Square onClick={turn} x={0} y={0} field={field} />
