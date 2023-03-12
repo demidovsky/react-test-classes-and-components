@@ -33,6 +33,7 @@ test('checks winner diagonal', () => {
     expect(engine.checkWinner()).toBe(null);
     engine.turn(2, 2);
     expect(engine.checkWinner()).toBe(Player.X);
+    expect(engine.turn(2, 0)).toBe(false);
 });
 
 

@@ -22,6 +22,8 @@ interface SquareProps {
 function Square(props: SquareProps) {
   return (
     <SquareStyled
+      role="button"
+      title={`square-${props.x}-${props.y}`}
       onClick={() => props.onClick(props.x, props.y)}>
       {props.field[props.x][props.y]}
     </SquareStyled>
